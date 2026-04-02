@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Sentry - Đồ án Tốt nghiệp</title>
+    
+    <script
+      src="https://browser.sentry-cdn.com/7.105.0/bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      Sentry.init({
+        dsn: "https://6129a66bbf64b91d418fdfe7312c335e@o4511134530732032.ingest.us.sentry.io/4511134557405184", // <-- Sửa dòng này
+      });
+    </script>
+</head>
+<body style="font-family: Arial; padding: 20px;">
+
+    <h2>Kịch bản 1: Sentry gom nhóm Code Error (Điểm mạnh)</h2>
+    <p>Bấm nút này 3 lần. Dù param truyền vào khác nhau, Sentry sẽ chỉ tạo ra <b>1 Issue duy nhất</b> (nhưng Event đếm lên 3).</p>
+    <button onclick="testLoiCode('User_' + Math.random())" style="padding: 10px; margin-bottom: 20px;">Gây lỗi Code</button>
+
+    <h2>Kịch bản 2: Sentry "mù" Ngữ nghĩa (Điểm yếu - Đất diễn của bạn)</h2>
+    <p>Bấm lần lượt 2 nút dưới đây. Chúng có cùng ý nghĩa, nhưng Sentry sẽ tạo ra <b>2 Issue rời rạc</b> vì chuỗi text khác nhau.</p>
+    <button onclick="testLoiText1()" style="padding: 10px;">Gửi Text: "Nút thanh toán bị mờ không bấm được"</button>
+    <br><br>
+    <button onclick="testLoiText2()" style="padding: 10px;">Gửi Text: "Không thể click vào nút thanh toán do bị mờ"</button>
+
+    <script>
+        // Hàm test kịch bản 1
+        function testLoiCode(user) {
+            console.log("Đang chạy test lỗi code cho user: " + user);
+            // Cố tình gọi hàm không tồn tại để văng exception
+            hamNayKhongTonTai(); 
+        }
+
+        // Hàm test kịch bản 2 - NLP
+        function testLoiText1() {
+            Sentry.captureMessage("Nút thanh toán bị mờ không bấm được");
+            alert("Đã gửi text 1 lên Sentry");
+        }
+
+        function testLoiText2() {
+            Sentry.captureMessage("Không thể click vào nút thanh toán do bị mờ");
+            alert("Đã gửi text 2 lên Sentry");
+        }
+    </script>
+</body>
+</html>
