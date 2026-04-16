@@ -1,0 +1,26 @@
+```text
+# Python / AI Engine
+__pycache__/
+*.py[cod]
+*$py.class
+*.pkl
+venv/
+env/
+.env
+
+# Java / Spring Boot
+target/
+.mvn/
+*.class
+.idea/
+*.iml
+
+# Node / React
+node_modules/
+dist/
+build/
+.env.local
+
+# OS generated files
+.DS_Store
+Thumbs.db
